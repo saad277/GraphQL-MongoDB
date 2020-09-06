@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 
 import { firebase } from '../../firebase'
@@ -8,9 +8,14 @@ import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom'
 import { auth } from 'firebase';
 
+import { AuthContext } from '../../context/authContext'
+
 
 
 const Complete = () => {
+
+    const { dispatch } = useContext(AuthContext)
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
@@ -28,6 +33,7 @@ const Complete = () => {
     const submitHandler = async (event) => {
 
         event.preventDefault();
+        setLoading(true)
 
         if (!email || !password) {
 
@@ -42,13 +48,25 @@ const Complete = () => {
 
             console.log(result)
 
-            if(result.user.emailVerified){
+            if (result.user.emailVerified) {
 
-                    window.localStorage.removeItem("emailForRegistration")
+                window.localStorage.removeItem("emailForRegistration")
 
-                    let user=firebase.auth().currentUser
+                let user = firebase.auth().currentUser
 
-                    await user.updatePassword(password)
+                await user.updatePassword(password)
+
+                const idToken = await user.getIdTokenResult()
+
+                dispatch({
+
+                    type: "LOGGED_IN_USER",
+                    payload: { emai: user.email, token: idToken.token }
+                })
+
+                // make api request to save user in MongoDB
+
+                history.push("/")
             }
 
         } catch (error) {
@@ -63,7 +81,7 @@ const Complete = () => {
     return (
         <div className="container ">
 
-            {loading ? (<h4 className="text-danger">Loading</h4>) : (<h4>Register</h4>)}
+            {loading ? (<h4 className="text-danger">Loading</h4>) : (<h4>Complete Your Registration</h4>)}
 
 
 

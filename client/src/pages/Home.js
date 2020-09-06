@@ -27,7 +27,7 @@ const Home = () => {
 
     const { state, dispatch } = useContext(AuthContext)
 
-    let history=useHistory();
+    let history = useHistory();
 
 
     console.log(data)
@@ -55,6 +55,12 @@ const Home = () => {
                 })}
             </div>
             <button onClick={() => fetchPosts()} className="btn-btn-raised btn-primary">Fetch POSTS</button>
+            <hr />
+            <button className="btn btn-primary">Update Username</button>
+            <hr />
+            {JSON.stringify(history)}
+            <hr />
+            {JSON.stringify(state)}
         </div>
 
 
