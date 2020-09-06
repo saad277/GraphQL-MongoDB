@@ -3,7 +3,7 @@ import React from 'react';
 import { useQuery, gql } from '@apollo/client';
 
 import Home from './pages/Home'
-
+import Nav from './Components/Nav'
 
 
 
@@ -12,7 +12,10 @@ import Home from './pages/Home'
 const App = () => {
 
   return (
-    <Home />
+    <>
+      <Nav />
+      <Home />
+    </>
   )
 
 

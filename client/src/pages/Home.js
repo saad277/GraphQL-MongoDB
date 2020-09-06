@@ -1,6 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 
 import { useQuery, gql, useLazyQuery } from '@apollo/client';
+
+import { AuthContext } from '../context/authContext'
+
+import { useHistory } from 'react-router-dom'
 
 
 
@@ -21,6 +25,9 @@ const Home = () => {
     const { data, loading, error } = useQuery(GET_ALL_POSTS)
     const [fetchPosts, { data: posts }] = useLazyQuery(GET_ALL_POSTS);
 
+    const { state, dispatch } = useContext(AuthContext)
+
+    let history=useHistory();
 
 
     console.log(data)
@@ -47,8 +54,9 @@ const Home = () => {
                     )
                 })}
             </div>
+            {JSON.stringify(state.user)}
             <button onClick={() => fetchPosts()} className="btn-btn-raised btn-primary">Fetch POSTS</button>
-
+            <button className="btn btn-primary" onClick={() => dispatch({ type: "LOGGED_IN_USER", payload: "yolo" })}>Dispatch</button>
         </div>
 
 
