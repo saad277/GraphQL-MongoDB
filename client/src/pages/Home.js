@@ -54,9 +54,7 @@ const Home = () => {
                     )
                 })}
             </div>
-            {JSON.stringify(state.user)}
             <button onClick={() => fetchPosts()} className="btn-btn-raised btn-primary">Fetch POSTS</button>
-            <button className="btn btn-primary" onClick={() => dispatch({ type: "LOGGED_IN_USER", payload: "yolo" })}>Dispatch</button>
         </div>
 
 
