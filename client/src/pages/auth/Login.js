@@ -13,7 +13,7 @@ const Login = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [loading, setLoading] = useState(false)
-    const [success, setSuccess] = useState(false)
+
 
 
     const { dispatch } = useContext(AuthContext)
@@ -51,19 +51,46 @@ const Login = () => {
 
             console.log(error)
             toast.error(error.message)
+            setLoading(false)
         }
 
 
     }
 
 
+    const googleLogin = () => {
+
+        const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+
+        firebase.auth().signInWithPopup(googleAuthProvider)
+            .then(async (result) => {
+
+                const { user } = result
+
+                const idToken = await user.getIdTokenResult()
+
+                dispatch({
+
+                    type: "LOGGED_IN_USER",
+                    payload: { email: user.email, token: idToken.token }
+                })
+
+                /// send to mongoDb
+
+                history.push("/")
+
+            })
+    }
+
+
     return (
         <div className="container p-5">
 
-            <h4>Login</h4>
+            {loading ? (<h4 className="text-danger">Loading</h4>) : (<h4>Login</h4>)}
 
+            <button onClick={googleLogin} className="btn btn-raised btn-danger mt-5">Login With Google</button>
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="mt-2">
 
                 <div className="form-group">
                     <label> Email Address </label>

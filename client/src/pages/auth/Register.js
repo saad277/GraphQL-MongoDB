@@ -47,7 +47,7 @@ const Register = () => {
 
 
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="mt-5">
 
                 <div className="form-group">
                     <label> Email Address </label>
