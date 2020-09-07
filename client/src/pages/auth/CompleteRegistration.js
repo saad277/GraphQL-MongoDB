@@ -79,7 +79,7 @@ const Complete = () => {
 
 
     return (
-        <div className="container ">
+        <div className="container p-5 ">
 
             {loading ? (<h4 className="text-danger">Loading</h4>) : (<h4>Complete Your Registration</h4>)}
 

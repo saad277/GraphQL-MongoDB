@@ -6,7 +6,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import { ApolloProvider } from '@apollo/client'
 
 import client from './ApolloClient/apolloClient'
-import { AuthProvider } from './context/authContext'
+
+
+import AuthProvider from './context/authProvider'
 
 
 import { BrowserRouter as Router } from 'react-router-dom'

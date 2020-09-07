@@ -1,9 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
+
+import { AuthContext } from '../context/authContext'
+
+import { firebase } from '../firebase'
+
 
 const Nav = () => {
 
+    const { state, dispatch } = useContext(AuthContext)
+
+    let history = useHistory();
+
+
+    const logout = async () => {
+
+
+        await firebase.auth().signOut();
+
+        dispatch({
+
+            type: "LOGGED_IN_USER",
+            payload: null
+        })
+
+        history.push("/login")
+
+    }
 
     return (
 
@@ -17,14 +41,30 @@ const Nav = () => {
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul className="navbar-nav mr-auto">
                     <li className="nav-item active">
-                        <Link className="nav-link" to="/login">Login</Link>
-                    </li>
-                    <li className="nav-item">
-                        <Link className="nav-link" to="/register">Register</Link>
-                    </li>
-                
 
-                   
+                        {state.user ? (<Link className="nav-link" >
+                            <a onClick={() => logout()} className="nav-item nav-link">Logout</a>
+                        </Link>) :
+                            (<Link className="nav-link" to="/login">
+                                <a className="nav-item nav-link">Login</a>
+                            </Link>)}
+
+
+                    </li>
+
+                    {state.user ? (null) :
+                        (<li className="nav-item">
+                            <Link className="nav-link" to="/register">
+                                <a className="nav-item nav-link">
+                                    Register
+                                </a>
+                            </Link>
+                        </li>
+                        )}
+
+
+
+
                 </ul>
                 <form className="form-inline my-2 my-lg-0">
                     <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />

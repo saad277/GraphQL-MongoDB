@@ -40,11 +40,11 @@ const Register = () => {
 
 
     return (
-        <div className="container ">
+        <div className="container p-5 ">
 
             {loading ? (<h4 className="text-danger">Loading</h4>) : (<h4>Register</h4>)}
 
-           
+
 
 
             <form onSubmit={handleSubmit}>
@@ -61,6 +61,9 @@ const Register = () => {
 
                     />
                 </div>
+
+
+          
 
                 <button type="submit" className="btn btn-raised btn-primary">Submit</button>
 
