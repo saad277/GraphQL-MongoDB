@@ -7,6 +7,7 @@ const mongoose = require("mongoose")
 const app = express();
 const { fileLoader, mergeTypes, mergeResolvers } = require("merge-graphql-schemas")
 
+const { authCheck } = require('./helpers/auth')
 
 const db = async () => {
 
@@ -39,7 +40,8 @@ const resolvers = mergeResolvers(fileLoader(path.join(__dirname, "./resolvers"))
 const apolloServer = new ApolloServer({
 
     typeDefs,
-    resolvers
+    resolvers,
+    context: ({ req, res }) => ({ req, res })    // passing request and response to middleware functions
 
 })
 
@@ -51,7 +53,7 @@ apolloServer.applyMiddleware({
 
 const httpServer = http.createServer(app)
 
-app.get("/rest", (req, res) => {
+app.get("/rest", authCheck, (req, res) => {
 
     res.json({
         data: "You have hit rest endpoint"
