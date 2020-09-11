@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
-import { useQuery, gql } from '@apollo/client';
+import { ApolloClient, InMemoryCache, createHttpLink, ApolloProvider, ApolloLink, concat } from '@apollo/client';
 
 import { Switch, Route } from 'react-router-dom'
 
@@ -14,12 +14,47 @@ import Complete from './pages/auth/CompleteRegistration'
 import { ToastContainer } from "react-toastify"
 
 
+import { AuthContext } from './context/authContext'
 
 
 const App = () => {
 
+
+  const { state } = useContext(AuthContext)
+
+  const { user } = state
+
+  const httpLink = createHttpLink({
+    uri: "http://localhost:8000/graphQl",
+
+  })
+
+  const authMiddleware = new ApolloLink((operation, forward) => {
+
+    operation.setContext({
+
+      headers: {
+
+        authtoken: user ? user.token : ""
+      }
+    })
+
+    return forward(operation);
+
+  })
+
+  const client = new ApolloClient({
+    link: concat(authMiddleware,httpLink),
+ 
+    cache: new InMemoryCache(),
+
+  })
+
+
+
+
   return (
-    <>
+    <ApolloProvider client={client}>
       <Nav />
       <ToastContainer />
       <Switch>
@@ -30,7 +65,7 @@ const App = () => {
         <Route path="/CompleteRegister" component={Complete} />
 
       </Switch>
-    </>
+    </ApolloProvider>
   )
 
 

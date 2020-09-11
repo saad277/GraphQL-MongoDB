@@ -24,7 +24,7 @@ const AuthProvider = ({ children }) => {
             if (user) {
                 const idToken = await user.getIdTokenResult()
 
-                console.log(idToken)
+               // console.log(idToken)
 
                 dispatch({
 

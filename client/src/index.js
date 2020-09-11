@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import 'react-toastify/dist/ReactToastify.css';
-import { ApolloProvider } from '@apollo/client'
 
-import client from './ApolloClient/apolloClient'
+
+
 
 
 import AuthProvider from './context/authProvider'
@@ -16,15 +16,15 @@ import { BrowserRouter as Router } from 'react-router-dom'
 ReactDOM.render(
   <React.StrictMode>
 
-    <ApolloProvider client={client}>
-      <Router>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
 
-      </Router>
+    <Router>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
 
-    </ApolloProvider>
+    </Router>
+
+
 
   </React.StrictMode>,
   document.getElementById('root')

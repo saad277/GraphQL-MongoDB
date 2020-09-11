@@ -30,7 +30,7 @@ const Home = () => {
     let history = useHistory();
 
 
-    console.log(data)
+  //  console.log(data)
 
     return (
 
