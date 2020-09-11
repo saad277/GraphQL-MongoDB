@@ -4,8 +4,11 @@ const { posts } = require("../temp")
 
 const { authCheck } = require("../helpers/auth")
 
+const User = require("../models/user")
 
-const allPosts = async (parent, args, { req, res,next }) => {
+const shortid = require("shortid")
+
+const allPosts = async (parent, args, { req, res, next }) => {
 
     await authCheck(req, res, next)
 
@@ -13,6 +16,18 @@ const allPosts = async (parent, args, { req, res,next }) => {
 
 }
 
+const userCreate = async (parent, args, { req, res, next }) => {
+
+    const currentUser = await authCheck(req)
+
+    const User = await User.findOne({ email: currentUser.email })
+
+    return user ? user : new User({
+
+        email: currentUser.email,
+        username: shortid.generate()
+    }).save();
+}
 
 const resolvers = {
 
@@ -33,7 +48,9 @@ const resolvers = {
             posts.push(post)
 
             return post;
-        }
+        },
+
+        userCreate
     }
 
 
