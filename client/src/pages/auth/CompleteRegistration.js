@@ -10,6 +10,21 @@ import { auth } from 'firebase';
 
 import { AuthContext } from '../../context/authContext'
 
+import { useMutation, gql } from '@apollo/client'
+
+
+const USER_CREATE = gql`
+
+   mutation userCreate{
+       userCreate{
+                 username
+                 email
+       }
+      
+    }
+
+`
+
 
 
 const Complete = () => {
@@ -27,6 +42,9 @@ const Complete = () => {
         setEmail(localStorage.getItem("emailForRegistration"))
 
     }, [history])
+
+
+    const [userCreate] = useMutation(USER_CREATE)
 
 
 
@@ -65,7 +83,7 @@ const Complete = () => {
                 })
 
                 // make api request to save user in MongoDB
-
+                userCreate()
                 history.push("/")
             }
 

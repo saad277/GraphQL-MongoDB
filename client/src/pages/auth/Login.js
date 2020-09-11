@@ -6,7 +6,20 @@ import { Link, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { firebase } from '../../firebase'
 
+import { useMutation, gql } from '@apollo/client'
 
+
+const USER_CREATE = gql`
+
+   mutation userCreate{
+       userCreate{
+                 username
+                 email
+       }
+      
+    }
+
+`
 
 const Login = () => {
 
@@ -20,6 +33,7 @@ const Login = () => {
 
     let history = useHistory()
 
+    const [userCreate] = useMutation(USER_CREATE)
 
     const handleSubmit = async (event) => {
 
@@ -42,7 +56,7 @@ const Login = () => {
                     })
 
                     /// send to mongoDb
-
+                    userCreate()
                     history.push("/")
 
                 })
@@ -76,7 +90,7 @@ const Login = () => {
                 })
 
                 /// send to mongoDb
-
+                userCreate()
                 history.push("/")
 
             })

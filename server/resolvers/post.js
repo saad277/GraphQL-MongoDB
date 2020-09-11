@@ -20,7 +20,7 @@ const userCreate = async (parent, args, { req, res, next }) => {
 
     const currentUser = await authCheck(req)
 
-    const User = await User.findOne({ email: currentUser.email })
+    const user = await User.findOne({ email: currentUser.email })
 
     return user ? user : new User({
 
