@@ -9,6 +9,8 @@ import { firebase } from '../../firebase'
 import { useMutation, gql } from '@apollo/client'
 
 
+import AuthForm from '../../Components/forms/AuthForm'
+
 const USER_CREATE = gql`
 
    mutation userCreate{
@@ -104,36 +106,15 @@ const Login = () => {
 
             <button onClick={googleLogin} className="btn btn-raised btn-danger mt-5">Login With Google</button>
 
-            <form onSubmit={handleSubmit} className="mt-2">
+            <AuthForm
+                email={email}
+                setEmail={setEmail}
+                password={password}
+                setPassword={setPassword}
+                loading={loading}
+                handleSubmit={handleSubmit}
+                showPasswordInput={true} />
 
-                <div className="form-group">
-                    <label> Email Address </label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        className="form-control"
-                        placeholder="Enter Email"
-
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label> Password </label>
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}
-                        className="form-control"
-                        placeholder="Enter Password"
-                        disabled={loading}
-
-                    />
-                </div>
-
-                <button className="btn btn-raised btn-primary">Submit</button>
-
-            </form>
 
         </div>
     )

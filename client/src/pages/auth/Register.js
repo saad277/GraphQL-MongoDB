@@ -5,7 +5,7 @@ import { firebase } from '../../firebase'
 
 import { toast } from 'react-toastify';
 
-
+import AuthForm from '../../Components/forms/AuthForm'
 
 const Register = () => {
 
@@ -46,28 +46,8 @@ const Register = () => {
 
 
 
+            <AuthForm email={email} loading={loading} setEmail={setEmail} handleSubmit={handleSubmit} />
 
-            <form onSubmit={handleSubmit} className="mt-5">
-
-                <div className="form-group">
-                    <label> Email Address </label>
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(event) => setEmail(event.target.value)}
-                        className="form-control"
-                        placeholder="Enter Email"
-                        disabled={loading}
-
-                    />
-                </div>
-
-
-          
-
-                <button type="submit" className="btn btn-raised btn-primary">Submit</button>
-
-            </form>
 
         </div>
     )
