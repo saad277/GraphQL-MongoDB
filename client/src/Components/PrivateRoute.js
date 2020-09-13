@@ -44,7 +44,7 @@ const PrivateRoute = ({ children, ...rest }) => {
                     <li className="nav-item">
                         <Link className="nav-link" to="/post/create">
                             Post
-                            {state.user}
+                           
                         </Link>
                     </li>
                 </ul>
@@ -71,7 +71,7 @@ const PrivateRoute = ({ children, ...rest }) => {
         )
     }
 
-    return user ? renderContent() : <h4>Loading...</h4>
+    return state.user ? renderContent() : <h4>Loading...</h4>
 
 }
 

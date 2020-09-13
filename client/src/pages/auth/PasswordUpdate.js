@@ -8,7 +8,7 @@ const PasswordUpdate=()=>{
 
         return (
 
-            <h4>Forgot Password</h4>
+            <h4>Update Password</h4>
         )
 }
 

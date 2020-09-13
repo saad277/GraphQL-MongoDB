@@ -12,6 +12,7 @@ import Register from './pages/auth/Register'
 import Complete from './pages/auth/CompleteRegistration'
 import PasswordUpdate from "./pages/auth/PasswordUpdate";
 import Profile from './pages/auth/Profile'
+import PasswordForgot from './pages/auth/PasswordForgot'
 
 
 import Post from './pages/post/Post'
@@ -67,9 +68,11 @@ const App = () => {
       <Switch>
 
         <Route exact path="/" component={Home} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/CompleteRegister" component={Complete} />
+        <Route exact path="/login" component={Login} />
+        <Route exact path="/register" component={Register} />
+        <Route exact path="/CompleteRegister" component={Complete} />
+
+        <Route exact path="/password/forgot" component={PasswordForgot} />
         <PrivateRoute exact path="/password/update" component={PasswordUpdate} />
         <PrivateRoute exact path="/profile" component={Profile} />
         <PrivateRoute exact path="/post/create" component={Post} />
