@@ -14,6 +14,8 @@ const Nav = () => {
     let history = useHistory();
 
 
+    const { user } = state
+
     const logout = async () => {
 
 
@@ -51,6 +53,17 @@ const Nav = () => {
 
 
                     </li>
+
+                    {state.user ?
+                        (<li className="nav-item">
+                            <Link className="nav-link" to="/profile">
+                                <a className="nav-item nav-link">
+                                    {user && user.email.split("@")[0]}
+                                </a>
+                            </Link>
+                        </li>
+                        ) : (null)}
+
 
                     {state.user ? (null) :
                         (<li className="nav-item">
